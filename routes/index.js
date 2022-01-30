@@ -21,5 +21,8 @@ router.get("/room/:id", indexController.singleRoom);
 // CONTACT ROUTE
 router.get("/contact", indexController.contact);
 
+// CONTACT FORM LOGIC
+router.post("/contact", indexController.contactLogic);
+
 // EXPORTING ROUTER
 module.exports = router;
