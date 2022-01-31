@@ -1,0 +1,92 @@
+<%- include('partials/header') %>
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4><%- customer.name %>'s Request</h4>
+                            <!-- <span class="ml-1">View Request</span> -->
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <a href="/agent/house/edit" class="btn btn-primary">Edit</a>
+                    </div> -->
+                </div>
+                <!-- row -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row justify-content-between">
+                                    <div class="col-lg-12">
+                                        <div class="mb-4">
+                                        </h2>Email: <%- customer.email.toLowerCase() %></h2>
+                                        <h4 class="card-title card-intro-title">Phone: <%- customer.phone %></h4>
+                                        <p>Want house for: <strong><%- customer.type %></strong></p>
+                                        </div>
+                                    
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <p>
+                                            <%- customer.description %>
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <br>
+                                        <br>
+                                        <hr>
+                                        <br>
+                                        <br>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xl-6 col-xxl-12">
+                    
+                                            <div class="card">
+                                                
+                                                <div class="card-body">
+                                                    <div class="basic-form">
+                                                        <form method="POST" action="/agent/customer/<%- customer._id %>">
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label>Customers Email</label>
+                                                                    <input type="email" class="form-control" value="<%- customer.email %>" name="email" readonly>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="card">
+                                                                <label>Message</label>
+                                                                <div class="form-group">
+                                                                    <textarea class="form-control" rows="15" cols="200" id="medssage" placeholder="Message" name="message"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary">Contact Customer</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-12 text-right">
+                                        <a href="" class="btn btn-lg btn-primary">Contact</a>
+                                    </div> -->
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+<%- include('partials/footer') %>

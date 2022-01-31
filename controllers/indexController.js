@@ -1,4 +1,5 @@
-const   nodemailer              = require("nodemailer");
+const   nodemailer              = require("nodemailer"),
+        Room                    = require("../models/room");
 
 require("dotenv").config();
 // NODEMAILER CONFIGURATION
@@ -9,11 +10,11 @@ const transport = nodemailer.createTransport({
         user : process.env.EMAIL,
         pass : process.env.PASSWORD
     }
-})
+});
 
 exports.index = (req, res) => {
     res.render("index", {
-        title : "Hotel 5 |10 Homepage"
+        title : "Hotel 5 | 10 Homepage"
     });
 }
 
@@ -33,15 +34,39 @@ exports.services = (req, res) => {
 
 // ROOMS PAGE
 exports.rooms = (req, res) => {
-    res.render("rooms", {
-        title : "Room 5 | 10 Rooms"
+    Room.find({})
+    .then(rooms => {
+        if(rooms){
+            res.render("rooms", {
+                title : "Room 5 | 10 Rooms",
+                rooms : rooms
+            });
+        }
+    })
+    .catch(err => {
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        }
     });
 }
 
 // SINGLE ROOM
 exports.singleRoom = (req, res) => {
-    res.render("singleRoom", {
-        title : "Hotel 5 | 10 Room"
+    Room.findById({_id : req.params.id})
+    .then(room => {
+        if(room){
+            res.render("singleRoom", {
+                title : "Hotel 5 | 10 Room",
+                room : room
+            });
+        }
+    })
+    .catch(err => {
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        }
     });
 }
 

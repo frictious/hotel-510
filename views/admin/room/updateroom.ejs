@@ -1,0 +1,66 @@
+<%- include('../partials/header') %>
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Update Room Information</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <a href="/agent/room/<%- room._id %>" class="btn btn-primary">View Room</a>
+                    </div>
+                </div>
+                <!-- row -->
+                <div class="row">
+                    <div class="col-xl-6 col-xxl-12">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="basic-form">
+                                    <form method="POST" action="/admin/room/<%- room._id %>?_method=PUT">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label>Name</label>
+                                                <input type="text" class="form-control" value="<%- room.name %>" name="name">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Price</label>
+                                                <input type="String" class="form-control" value="<%- room.price %>" name="price">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label>Type</label>
+                                                <select id="inputState" class="form-control" name="type">
+                                                    <option selected disabled>Choose Room Type</option>
+                                                    <option value="Rent">Suite</option>
+                                                    <option value="Lease">Bungalow</option>
+                                                    <option value="Sale">Double Room</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <label>room Description</label>
+                                            <div class="form-group">
+                                                <textarea class="form-control" rows="4" cols="200" id="comment" name="description"><%- room.description %></textarea>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Update room Information</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+<%- include('../partials/footer') %>

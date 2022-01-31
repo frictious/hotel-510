@@ -1,0 +1,49 @@
+<%- include('../partials/header') %>
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Rooms</h4>
+                            <a href="/admin/room/add" class="btn btn-sm btn-primary">Add Room</a>
+                            <!-- <span class="ml-1">rooms</span> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <% rooms.forEach((room) => { %>
+                        <div class="col-xl-4 col-xxl-4 col-lg-4 col-sm-4">
+                            <div class="card mb-3">
+                                <img class="card-img-top img-fluid" src="/admin/files/<%-room.picture%>" alt="Picture of room">
+                                <!-- <div class="card-header">
+                                    <h5 class="card-title"><%- //room.address %></h5>
+                                </div> -->
+                                <div class="card-body">
+                                    <p class="card-text"><%- room.description.substring(0, 40) %>...</p>
+                                </div>
+                                <div class="card-footer">
+                                    <!-- <p class="card-text d-inline">Card footer</p> -->
+                                    <a href="/admin/room/<%- room._id %>" class="card-link float-left btn btn-primary">Read More...</a>
+
+                                    <form action="/admin/room/<%- room._id %>?_method=DELETE" class="float-right" method="POST">
+                                        <button class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+<%- include('../partials/footer') %>
