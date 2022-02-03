@@ -1,0 +1,82 @@
+<%- include('partials/header') %>
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Hi, welcome back!</h4>
+                            <span class="ml-1">Admins</span>
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Table</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Datatable</a></li>
+                        </ol>
+                    </div> -->
+                </div>
+                <!-- row -->
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Admins</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example" class="display" style="min-width: 845px">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Contact</th>
+                                                <th>Role</th>
+                                                <th class="text-center" colspan="2">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% admins.forEach((admin) => { %> 
+                                                <% if(admin.role === "Admin") { %>
+                                                    <tr>
+                                                        <td><%- admin.name %></td>
+                                                        <td><%- admin.contact %></td>
+                                                        <td><%- admin.role %></td>
+                                                        <td class="text-center">
+                                                            <a href="/admin/profile/<%- admin._id %>/edit">
+                                                                <button class="btn btn-sm btn-primary">Edit</button>
+                                                            </a>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <form action="/admin/<%- admin._id %>?_method=DELETE" method="POST">
+                                                                <button class="btn btn-sm btn-danger">Delete</button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                <% } %>
+                                            <% }); %>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Contact</th>
+                                                <th>Role</th>
+                                                <th class="text-center" colspan="2">Action</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+<%- include('partials/footer') %>

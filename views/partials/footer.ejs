@@ -30,6 +30,11 @@
                                 <li><a href="/about">About Hotel 5 | 10</a></li>
                                 <li><a href="/rooms">Our Best Rooms</a></li>
                                 <li><a href="/services">Service</a></li>
+                                <% if(user !== undefined){ %>
+                                    <li><a href="/logout">Logout</a></li>
+                                <% } else {%>
+                                    <li><a href="/login">Login</a></li>
+                                <% } %>
                             </ul>
                         </div>
                     </div>

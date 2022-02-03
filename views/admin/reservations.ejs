@@ -1,0 +1,90 @@
+<%- include('partials/header') %>
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Hi, welcome back!</h4>
+                            <span class="ml-1">Customers Reservations</span>
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Table</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Datatable</a></li>
+                        </ol>
+                    </div> -->
+                </div>
+                <!-- row -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Customers Reservations</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example" class="display" style="min-width: 845px">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Price</th>
+                                                <th>From</th>
+                                                <th>To</th>
+                                                <th>Fee</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% reservedRooms.forEach((reservedRoom) => { %> 
+                                                <% if(reservedRoom.status !== "Available") { %> 
+                                                    <tr>
+                                                        <td><%- reservedRoom.name %></td>
+                                                        <td>Le <%- reservedRoom.price %></td>
+                                                        <td><%- reservedRoom.from.toString
+                                                        ().substring(0, 16) %></td>
+                                                        <td><%- reservedRoom.to.toString().substring(0, 16) %></td>
+                                                        <td>Le <%- (reservedRoom.to.getDate() - reservedRoom.from.getDate()) * reservedRoom.price %></td>
+                                                        <% if(reservedRoom.status === "Reserved"){ %>
+                                                            <td class="text-center">
+                                                                <form action="/admin/reservation/<%- reservedRoom._id %>?_method=PUT" method="POST">
+                                                                    <button class="btn btn-sm btn-danger" type="submit">Cancel Reservation</button>
+                                                                </form>
+                                                            </td>       
+                                                        <% } else if(reservedRoom.status === "Booked") { %>
+                                                            <td class="text-center">
+                                                                <form action="/admin/reservation/<%- reservedRoom._id %>?_method=PUT" method="POST">
+                                                                    <button class="btn btn-sm btn-danger" type="submit">Free Room</button>
+                                                                </form>
+                                                            </td>
+                                                        <% } %>
+                                                    </tr>
+                                                <% } %>
+                                            <% }); %>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Price</th>
+                                                <th>From</th>
+                                                <th>To</th>
+                                                <th>Fee</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+<%- include('partials/footer') %>

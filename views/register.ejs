@@ -1,0 +1,90 @@
+<%- include ("partials/header") %>
+    <!-- slider Area Start-->
+    <div class="slider-area">
+        <div class="single-slider hero-overly slider-height2 d-flex align-items-center" data-background="assets/img/hero/contact_hero.jpg" >
+            <div class="container">
+                <div class="row ">
+                    <div class="col-md-11 offset-xl-1 offset-lg-1 offset-md-1">
+                        <div class="hero-caption">
+                            <span>Create Account</span>
+                            <h2>Create Account</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- slider Area End-->
+
+    <!-- ================ contact section start ================= -->
+    <section class="contact-section">
+            <div class="container">
+    
+                <div class="row">
+                    <div class="col-8">
+                        <h2 class="contact-title text-center">CREATE ACCOUNT</h2>
+                    </div>
+                    <div class="col-lg-8 text-center">
+                        <form class="form-contact contact_form" action="/register" method="POST">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input class="form-control" name="contact" id="contact" type="tel" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Contact'" placeholder="Enter Contact">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control valid" name="password" id="password" type="password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your password'" placeholder="Enter your password">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control valid" name="repassword" id="repassword" type="password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'" placeholder="Confirm Password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                                <button type="submit" class="button button-contactForm boxed-btn">Create Account</button>
+                                <p>Already have an account? </p><a href="/login">Login Here</a> </p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-3 offset-lg-1">
+                        <div class="media contact-info">
+                            <span class="contact-info__icon"><i class="ti-home"></i></span>
+                            <div class="media-body">
+                                <h3>Hotel 5 | 10</h3>
+                                <p>Login and have access to rooms, reserve rooms, as well as cancel rooms that you have reserved</p>
+                            </div>
+                        </div>
+                        <!-- <div class="media contact-info">
+                            <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+                            <div class="media-body">
+                                <h3>+232 79 499920</h3>
+                                <p>Mon to Fri 9am to 6pm</p>
+                            </div>
+                        </div>
+                        <div class="media contact-info">
+                            <span class="contact-info__icon"><i class="ti-email"></i></span>
+                            <div class="media-body">
+                                <h3>hotelsystem17@gmail.com</h3>
+                                <p>Send us your query anytime!</p>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    <!-- ================ contact section end ================= -->
+    
+<%- include ("partials/footer") %>

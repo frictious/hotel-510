@@ -1,0 +1,52 @@
+<%- include ("partials/header") %>
+    <main>
+        <!-- slider Area Start-->
+        <div class="slider-area">
+            <div class="single-slider hero-overly slider-height2 d-flex align-items-center" data-background="/assets/img/hero/aboutpage_hero.jpg" >
+                <div class="container">
+                    <div class="row ">
+                        <div class="col-md-11 offset-xl-1 offset-lg-1 offset-md-1">
+                            <div class="hero-caption">
+                                <span>Booking Confirmation</span>
+                                <h2>Booking Confirmation</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- slider Area End-->
+
+        <!-- Make customer Start-->
+        <section class="make-customer-area customar-padding fix">
+            <div class="container-fluid p-0">
+                <div class="row">
+                   <div class="col-xl-5 col-lg-6">
+                        <div class="customer-img mb-120">
+                            <img src="/assets/img/customer/clapping.jpg" class="clapping" alt="" width="100%">
+                            <img src="/assets/img/customer/customar2.png" class="customar-img2" alt="">
+                            <div class="service-experience heartbeat">
+                                <h3>Congratulations</h3>
+                            </div>
+                        </div>
+                   </div>
+                    <div class=" col-xl-4 col-lg-4">
+                        <div class="customer-caption">
+                            <span>Payment Successful</span>
+                            <h2>Thank you for paying for <%- foundRoom.name %> </h2>
+                            <div class="caption-details">
+                                <p class="pera-dtails">You've booked the room from <strong> <%- foundRoom.from.toString().substring(0, 16) %> to <%- foundRoom.to.toString().substring(0, 16) %></strong></p>
+                                <p>
+                                    Come over to the hotel and have the best experience ever. See you when you get here
+                                </p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Make customer End-->
+
+    </main>
+<%- include ("partials/footer") %>

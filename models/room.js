@@ -3,7 +3,7 @@ const   mongoose                    = require("mongoose");
 const roomSchema = mongoose.Schema({
     name : String,
     description : String,
-    price : String,
+    price : Number,
     from : Date,
     to : Date,
     type : String,
@@ -11,7 +11,11 @@ const roomSchema = mongoose.Schema({
     status : {
         type : String,
         default : "Available"
-    }, // The status specifies if the room has been booked or is vacant/available
+    }, // The status specifies if the room has been booked/reserved or is vacant/available
+    customer : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "User"
+    }
 });
 
 module.exports = mongoose.model("Rooms", roomSchema);

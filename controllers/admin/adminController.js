@@ -1,5 +1,6 @@
 const   Room                    = require("../../models/room"),
         Admin                   = require("../../models/user"),
+        Customer                = require("../../models/user"),
         passport                = require("passport"),
         mongoose                = require("mongoose"),
         bcrypt                  = require("bcryptjs"),
@@ -70,8 +71,105 @@ const cpUpload = files.fields([{ name: 'front', maxCount: 1 }, { name: 'back', m
 
 // Admin ROOT ROUTE
 exports.index = (req, res) => {
-    res.render("Admin/index", {
-        title : "Hotel 5 | 10 Admin Dashboard"
+    Customer.find({role : "Customer"})
+    .then(customers => {
+        if(customers){
+            Room.find({})
+            .then(rooms => {
+                if(rooms){
+                    res.render("Admin/index", {
+                        title : "Hotel 5 | 10 Admin Dashboard",
+                        customers : customers,
+                        rooms : rooms
+                    });
+                }
+            })
+        }
+    })
+    .catch(err => {
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        }
+    });
+}
+
+// REGISTER PAGE
+exports.register = (req, res) => {
+    res.render("admin/register", {
+        title : "Hotel 5 | 10 Admin Registration"
+    });
+}
+
+// REGISTER LOGIC
+exports.registerLogic = (req, res) => {
+    if(req.body.password === req.body.repassword){
+        bcrypt.genSalt(10)
+        .then(salt => {
+            if(salt){
+                bcrypt.hash(req.body.password, salt)
+                .then(hash => {
+                    Admin.create({
+                        name : req.body.name,
+                        email : req.body.email,
+                        contact : req.body.contact,
+                        password : hash,
+                        role : "Admin"
+                    })
+                    .then(admin => {
+                        if(admin){
+                            console.log("ADMIN ACCOUNT CREATED SUCCESSFULLY");
+                            res.redirect("/admin/login");
+                        }
+                    })
+                })
+            }
+        })
+        .catch(err => {
+            if(err){
+                console.log(err);
+                res.redirect("back");
+            }
+        });
+    }else{
+        console.log("PASSWORDS DO NOT MATCH");
+        res.redirect("back");
+    }
+}
+
+// ADMINS
+exports.admins = (req, res) => {
+    Admin.find({})
+    .then(admins => {
+        if(admins){
+            res.render("admin/admins", {
+                title : "Hotel 5 | 10 Admins",
+                admins : admins
+            });
+        }
+    })
+    .catch(err => {
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        }
+    });
+}
+
+// DELETE ADMIN
+exports.deleteAdmin = (req, res) => {
+    Admin.findByIdAndDelete({_id : req.params.id})
+    .then(admin => {
+        if(admin){
+            console.log("ADMIN ACCOUNT DELETED SUCCESSFULLY");
+            res.redirect("back");
+        }
+    })
+    .catch(err => {
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        }
     });
 }
 
@@ -99,11 +197,11 @@ exports.logout = (req, res) => {
 // PROFILE FORM
 exports.profile = (req, res) => {
     Admin.findById({_id : req.params.id})
-    .then(Admin => {
-        if(Admin){
+    .then(admin => {
+        if(admin){
             res.render("admin/profile", {
                 title : "Hotel 5 | 10 Admin Profile",
-                Admin : Admin
+                admin : admin
             });
         }
     })
@@ -117,16 +215,27 @@ exports.profile = (req, res) => {
 
 // UPDATE PROFILE
 exports.updateProfile = (req, res) => {
-    if(req.body.picture === undefined){
-        Admin.findByIdAndUpdate({_id : req.params.id}, {
-            name : req.body.name,
-            contact : req.body.contact,
-            email : req.body.email
-        })
-        .then(Admin => {
-            if(Admin){
-                console.log("Admin PROFILE UPDATED SUCCESSFULLY");
-                res.redirect("back");
+    if(req.body.password !== undefined) {
+        bcrypt.genSalt(10)
+        .then(salt => {
+            if(salt){
+                bcrypt.hash(req.body.password, salt)
+                .then(hash => {
+                    if(hash){
+                        Admin.findByIdAndUpdate({_id : req.params.id}, {
+                            name : req.body.name,
+                            contact : req.body.contact,
+                            email : req.body.email,
+                            password : hash
+                        })
+                        .then(Admin => {
+                            if(Admin){
+                                console.log("ADMIN PROFILE UPDATED SUCCESSFULLY");
+                                res.redirect("back");
+                            }
+                        })
+                    }
+                })
             }
         })
         .catch(err => {
@@ -136,29 +245,23 @@ exports.updateProfile = (req, res) => {
             }
         });
     }else{
-        if(req.file.mimetype === "image/jpg" || req.file.mimetype === "image/png" || req.file.mimetype === "image/jpeg"){
-            Admin.findByIdAndUpdate({_id : req.params.id}, {
-                name : req.body.name,
-                contact : req.body.contact,
-                email : req.body.email,
-                picture : req.file.filename,
-                pictureName : req.file.originalname
-            })
-            .then(Admin => {
-                if(Admin){
-                    console.log("Admin PROFILE UPDATED SUCCESSFULLY");
-                    res.redirect("back");
-                }
-            })
-            .catch(err => {
-                if(err){
-                    console.log(err);
-                    res.redirect("back");
-                }
-            });
-        }else{
-            console.log("FILE MUST BE A PICTURE");
-        }
+        Admin.findByIdAndUpdate({_id : req.params.id}, {
+            name : req.body.name,
+            contact : req.body.contact,
+            email : req.body.email
+        })
+        .then(Admin => {
+            if(Admin){
+                console.log("ADMIN PROFILE UPDATED SUCCESSFULLY");
+                res.redirect("back");
+            }
+        })
+        .catch(err => {
+            if(err){
+                console.log(err);
+                res.redirect("back");
+            }
+        });
     }
 }
 
@@ -399,19 +502,41 @@ exports.updateroom = (req, res) => {
 
 // UPDATE ROOM INFORMATION LOGIC
 exports.updateroomLogic = (req, res) => {
-    Room.findByIdAndUpdate({_id : req.params.id}, req.body)
-    .then(room => {
-        if(room){
-            console.log("ROOM INFORMATION UPDATED SUCCESSFULLY");
-            res.redirect(`/admin/room/${room._id}`);
-        }
-    })
-    .catch(err => {
-        if(err){
-            console.log(err);
-            res.redirect("back");
-        }
-    });
+    if(req.body.picture !== undefined) {
+        Room.findByIdAndUpdate({_id : req.params.id}, {
+            name : req.body.name,
+            description : req.body.description,
+            price : req.body.price,
+            type : req.body.type,
+            picture : req.file.filename,
+        })
+        .then(room => {
+            if(room){
+                console.log("ROOM INFORMATION UPDATED SUCCESSFULLY");
+                res.redirect(`/admin/room/${room._id}`);
+            }
+        })
+        .catch(err => {
+            if(err){
+                console.log(err);
+                res.redirect("back");
+            }
+        });
+    }else{
+        Room.findByIdAndUpdate({_id : req.params.id}, req.body)
+        .then(room => {
+            if(room){
+                console.log("ROOM INFORMATION UPDATED SUCCESSFULLY");
+                res.redirect(`/admin/room/${room._id}`);
+            }
+        })
+        .catch(err => {
+            if(err){
+                console.log(err);
+                res.redirect("back");
+            }
+        });
+    }
 }
 
 // DELETE ROOM INFORMATION
@@ -431,14 +556,14 @@ exports.deleteroom = (req, res) => {
     });
 }
 
-// REQUESTS
-exports.requests = (req, res) => {
-    Request.find({})
-    .then(requests => {
-        if(requests){
-            res.render("Admin/requests", {
-                title : "Hotel 5 | 10 Customers Requests",
-                requests : requests
+// RESERVATIONS
+exports.reservations = (req, res) => {
+    Room.find({})
+    .then(reservedRooms => {
+        if(reservedRooms){
+            res.render("admin/reservations", {
+                title : "Hotel 5 | 10 Room Reservations",
+                reservedRooms : reservedRooms
             });
         }
     })
@@ -450,15 +575,52 @@ exports.requests = (req, res) => {
     });
 }
 
-// VIEW REQUEST
-exports.viewrequest = (req, res) => {
-    Request.findById({_id : req.params.id})
+// CANCEL RESERVATIONS
+exports.cancelReservation = (req, res) => {
+    Room.findByIdAndUpdate({_id : req.params.id}, {
+        status : "Available",
+        customer : null
+    })
+    .then( canceledReservation => {
+        if(canceledReservation){
+            console.log("RESERVATION CANCELED");
+            res.redirect("back");
+        }
+    })
+    .catch(err => {
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        }
+    });
+}
+
+// CUSTOMERS
+exports.customers = (req, res) => {
+    Customer.find({})
+    .then(customers => {
+        if(customers){
+            res.render("admin/customers", {
+                title : "Hotel 5 | 10 Customers",
+                customers : customers
+            });
+        }
+    })
+    .catch(err => {
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        }
+    });
+}
+
+// DELETE CUSTOMER
+exports.deleteCustomer = (req, res) => {
+    Customer.findByIdAndDelete({_id : req.params.id})
     .then(customer => {
         if(customer){
-            res.render("Admin/viewrequest", {
-                title : "Hotel 5 | 10 Customers Request",
-                customer: customer
-            });
+            console.log("CUSTOMER ACCOUNT DELETED SUCCESSFULLY");
+            res.redirect("back");
         }
     })
     .catch(err => {
@@ -467,35 +629,6 @@ exports.viewrequest = (req, res) => {
             res.redirect("back");
         }
     });
-}
-
-// CONTACT CUSTOMER
-exports.contactcustomer = (req, res) => {
-    Request.findById({_id : req.params.id})
-    .then(customer => {
-       if(customer){
-           const mailOptions = {
-               from: process.env.EMAIL,
-               to: customer.email,
-               subject : `RE: Request for ${customer.type}`,
-               html: `${req.body.message}<p>From ${req.user.name} </p>`
-           }
-       
-           //Sending mail
-           transport.sendMail(mailOptions, (err, mail) => {
-               if(!err){
-                    console.log("MAIL SENT TO CUSTOMER");
-                    res.redirect("back");
-               }
-           });
-       } 
-    })
-    .catch(err => {
-        if(err){
-            console.log(err);
-            res.redirect("back");
-        }
-    })
 }
 
 //Getting the files

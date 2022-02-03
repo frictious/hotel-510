@@ -71,40 +71,43 @@ const isLoggedIn = (req, res, next) =>{
 router.get("/",  adminController.index);
 
 // SET PASSWORD
-router.get("/setpassword/:id", adminController.setpassword);
+router.get("/setpassword/:id", isLoggedIn, adminController.setpassword);
 
 // SET PASSWORD LOGIC
 router.put("/setpassword/:id", adminController.setpasswordLogic);
 
 // roomS
-router.get("/rooms",  adminController.rooms);
+router.get("/rooms", isLoggedIn,  adminController.rooms);
 
 // ADD room FORM
-router.get("/room/add",  adminController.addRoom);
+router.get("/room/add", isLoggedIn,  adminController.addRoom);
 
 // VIEW room
-router.get("/room/:id",  adminController.getroom);
+router.get("/room/:id", isLoggedIn, adminController.getroom);
 
 // ADD room LOGIC
 router.post("/room/add", files.single("picture"), adminController.addroomLogic);
 
 // UPDATE room
-router.get("/room/:id/edit",  adminController.updateroom);
+router.get("/room/:id/edit", isLoggedIn, adminController.updateroom);
 
 // UPDATE room LOGIC
-router.put("/room/:id", adminController.updateroomLogic);
+router.put("/room/:id", files.single("picture"), adminController.updateroomLogic);
 
 // DELETE room
 router.delete("/room/:id", adminController.deleteroom);
 
-// requests
-router.get("/requests",  adminController.requests);
+// RESERVATIONS
+router.get("/reservations", isLoggedIn, adminController.reservations);
 
-// VIEW request
-router.get("/request/:id",  adminController.viewrequest);
+// CANCEL RESERVATIONS
+router.put("/reservation/:id",  adminController.cancelReservation);
 
-// SEND MESSAGE TO CUSTOMER
-router.get("/customer/:id",  adminController.contactcustomer);
+// ADMIN REGISTRATION
+router.get("/register", isLoggedIn, adminController.register);
+
+// ADMIN REGISTRATION LOGIC
+router.post("/register", adminController.registerLogic);
 
 // LOGIN
 router.get("/login", adminController.login);
@@ -116,10 +119,10 @@ router.post("/login", adminController.loginLogic);
 router.get("/logout", adminController.logout);
 
 // PROFILE ROUTE
-router.get("/profile/:id", adminController.profile);
+router.get("/profile/:id", isLoggedIn, adminController.profile);
 
 // UPDATE PROFILE LOGIC
-router.put("/profile/:id", files.single("picture"), adminController.updateProfile);
+router.put("/profile/:id", adminController.updateProfile);
 
 // RESET PASSWORD
 router.get("/resetpassword/:id", adminController.resetpassword);
@@ -132,6 +135,18 @@ router.get("/forgotpassword", adminController.forgotpassword);
 
 // FORGOT PASSWORD LOGIC
 router.post("/forgotpassword", adminController.forgotpasswordLogic);
+
+// ADMINS
+router.get("/admins", isLoggedIn, adminController.admins);
+
+// DELETE ADMIN
+router.delete("/:id", adminController.deleteAdmin);
+
+// CUSTOMERS
+router.get("/customers", isLoggedIn, adminController.customers);
+
+// DELETE CUSTOMER
+router.delete("/customer/:id", adminController.deleteCustomer);
 
 // GET FILES
 router.get("/files/:filename", adminController.files);

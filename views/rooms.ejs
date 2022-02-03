@@ -33,20 +33,22 @@
                 </div>
                 <div class="row">
                     <% rooms.forEach((room) => { %>  
-                        <div class="col-xl-4 col-lg-6 col-md-6">
-                            <!-- Single Room -->
-                            <div class="single-room mb-50">
-                                <div class="room-img">
-                                <a href="/room/<%- room._id %>"><img src="/admin/files/<%- room.picture %>" alt=""></a>
-                                </div>
-                                <div class="room-caption">
-                                    <h3><a href="/room/<%- room._id %>"><%- room.name %></a></h3>
-                                    <div class="per-night">
-                                        <span><u>Le </u><%- room.price %> <span>/ per night</span></span>
+                        <% if(room.status !== "Booked") { %>
+                            <div class="col-xl-4 col-lg-6 col-md-6">
+                                <!-- Single Room -->
+                                <div class="single-room mb-50">
+                                    <div class="room-img">
+                                    <a href="/room/<%- room._id %>"><img src="/admin/files/<%- room.picture %>" alt=""></a>
+                                    </div>
+                                    <div class="room-caption">
+                                        <h3><a href="/room/<%- room._id %>"><%- room.name %></a></h3>
+                                        <div class="per-night">
+                                            <span><u>Le </u><%- room.price %> <span>/ per night</span></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        <% } %>
                     <% }); %>
                 </div>
                 <div class="row justify-content-center">

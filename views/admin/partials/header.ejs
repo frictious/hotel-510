@@ -131,6 +131,23 @@
                     <li><a href="/admin/reservations" aria-expanded="false">
                         <i class="icon icon-world-2"></i><span class="nav-text">Reservations<span></a>
                     </li>
+                    <li class="nav-label">Customers</li>
+                    <li><a href="/admin/customers" aria-expanded="false">
+                        <i class="icon icon-world-2"></i><span class="nav-text">Customers<span></a>
+                    </li>
+                    <li class="nav-label">Admins</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                class="icon icon-home"></i><span class="nav-text">Admins</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="/admin/admins">Admins</a></li>
+                            <li><a href="/admin/register" aria-expanded="false">Add Admin</a></li>
+                            <li><a href="/admin/profile/<%- user._id %>" aria-expanded="false">Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-label">Logout</li>
+                    <li><a href="/admin/logout" aria-expanded="false">
+                        <i class="icon icon-world-2"></i><span class="nav-text">Logout<span></a>
+                    </li>
                 </ul>
             </div>
 
