@@ -68,7 +68,7 @@ const isLoggedIn = (req, res, next) =>{
 };
 
 // ROOT ROUTE
-router.get("/",  adminController.index);
+router.get("/", isLoggedIn, adminController.index);
 
 // SET PASSWORD
 router.get("/setpassword/:id", isLoggedIn, adminController.setpassword);
