@@ -21,8 +21,18 @@ const transport = nodemailer.createTransport({
 });
 
 exports.index = (req, res) => {
-    res.render("index", {
-        title : "Hotel 5 | 10 Homepage"
+    Room.find({}).limit(3)
+    .then(rooms => {
+        if(rooms){
+            res.render("index", {
+                title : "Hotel 5 | 10 Homepage",
+                rooms : rooms
+            });
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        res.redirect("back");
     });
 }
 
@@ -142,6 +152,67 @@ exports.registerLogic = (req, res) => {
     }else{
         console.log("PASSWORDS DO NOT MATCH");
         res.redirect("back");
+    }
+}
+
+// PROFILE PAGE
+exports.profile = (req, res) => {
+    Customer.findById({_id : req.params.id})
+    .then(customer => {
+        if(customer){
+            res.render("profile", {
+                title : "Hotel 5 | 10 Customer Profile",
+                customer : customer
+            });
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        res.redirect("back");
+    });
+}
+
+// REGISTER FORM LOGIC
+exports.profileLogic = (req, res) => {
+    if(req.body.password === req.body.repassword && (req.body.password !== "" || req.body.repassword !== "")){
+        bcrypt.genSalt(10)
+        .then(salt => {
+            bcrypt.hash(req.body.password, salt)
+            .then(hash => {
+                Customer.findByIdAndUpdate({_id : req.params.id}, {
+                    name : req.body.name,
+                    email : req.body.email,
+                    contact : req.body.contact,
+                    password : hash
+                })
+                .then(customer => {
+                    if(customer){
+                        console.log("ACCOUNT UPDATED SUCCESSFULLY");
+                        res.redirect("back");
+                    }
+                })
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            res.redirect("back");
+        });
+    }else{
+        Customer.findByIdAndUpdate({_id : req.params.id}, {
+            name : req.body.name,
+            email : req.body.email,
+            contact : req.body.contact
+        })
+        .then(customer => {
+            if(customer){
+                console.log("ACCOUNT UPDATED SUCCESSFULLY");
+                res.redirect("back");
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.redirect("back");
+        });
     }
 }
 

@@ -41,6 +41,12 @@ router.get("/register", indexController.register);
 // REGISTER FORM LOGIC
 router.post("/register", indexController.registerLogic);
 
+// PROFILE PAGE
+router.get("/profile/:id", isLoggedIn, indexController.profile);
+
+// PROFILE FORM LOGIC
+router.put("/profile/:id", indexController.profileLogic);
+
 // LOGIN ROUTE
 router.get("/login", indexController.login);
 

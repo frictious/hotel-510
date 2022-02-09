@@ -62,12 +62,6 @@
                                         <li><a href="/">Home</a></li>
                                         <li><a href="/about">About</a></li>
                                         <li><a href="/services">Services</a></li>
-                                        <!-- <li><a href="#">Blog</a>
-                                            <ul class="submenu">
-                                                <li><a href="/blog">Blog</a></li>
-                                                <li><a href="/room/id">Blog Details</a></li>
-                                            </ul>
-                                        </li> -->
                                         <li><a href="/rooms">Rooms</a>
                                             <!-- <ul class="submenu">
                                                 <li><a href="/rooms">Rooms</a>
@@ -75,6 +69,16 @@
                                             </ul> -->
                                         </li>
                                         <li><a href="/contact">Contact</a></li>
+                                        <% if(user !== undefined) { %>
+                                            <li><a href="#">Account</a>
+                                                <ul class="submenu">
+                                                    <li><a href="/profile/<%- user._id %>">Profile</a></li>
+                                                    <li><a href="/logout">Logout</a></li>
+                                                </ul>
+                                            </li>                                        
+                                        <% } else { %>
+                                            <li><a href="/login">Login</a></li>
+                                        <% } %>
                                     </ul>
                                 </nav>
                             </div>

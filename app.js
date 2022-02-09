@@ -20,7 +20,8 @@ app.use(methodoverride("_method"));
 global.Promise = mongoose.Promise;
 mongoose.connect(process.env.MONGODB, {
     useUnifiedTopology : true,
-    useNewUrlParser : true
+    useNewUrlParser : true,
+    useFindAndModify : false
 });
 
 app.use(session({

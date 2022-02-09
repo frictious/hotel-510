@@ -35,19 +35,14 @@
                                                 <input type="text" class="form-control" placeholder="Room Name" name="name">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label>Price</label>
-                                                <input type="number" class="form-control" placeholder="Price" name="price">
+                                                <label>Price ($)</label>
+                                                <input type="number" class="form-control" placeholder="Price" name="price" min="5">
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label>Type</label>
-                                                <select id="inputState" class="form-control" name="type">
-                                                    <option selected disabled>Choose Room Type</option>
-                                                    <option value="Rent">Suite</option>
-                                                    <option value="Lease">Bungalow</option>
-                                                    <option value="Sale">Double Room</option>
-                                                </select>
+                                                <input type="text" class="form-control" placeholder="Type of Room" name="type">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Picture</label>

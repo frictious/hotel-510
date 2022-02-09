@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control valid" name="price" id="price" type="number" value="<%- room.price %>" readonly>
+                                        <input class="form-control valid" name="price" id="price" type="number" value="$ <%- room.price %>" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control" name="total_fee" id="total_fee" type="number" value="<%- (room.to.getDate() - room.from.getDate()) * room.price %>" readonly>
+                                        <input class="form-control" name="total_fee" id="total_fee" type="number" value="$ <%- (room.to.getDate() - room.from.getDate()) * room.price %>" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
@@ -110,11 +110,10 @@
             let customer_name = document.getElementById("customer_name");
             let customer_email = document.getElementById("customer_email");
             let room_id = document.getElementById("room_id");
-            let fee = total_fee.value / 11000;
-          FlutterwaveCheckout({
+            FlutterwaveCheckout({
             public_key: "FLWPUBK_TEST-87ddbe08f961a88f77f1a193a2326e63-X",
             tx_ref: "RX1",
-            amount: `${fee}`,
+            amount: `${total_fee.value}`,
             currency: "USD",
             country: "US",
             payment_options: " ",

@@ -1,13 +1,13 @@
 <%- include ("partials/header") %>
     <!-- slider Area Start-->
     <div class="slider-area">
-        <div class="single-slider hero-overly slider-height2 d-flex align-items-center" data-background="assets/img/hero/contact_hero.jpg" >
+        <div class="single-slider hero-overly slider-height2 d-flex align-items-center" data-background="/assets/img/hero/contact_hero.jpg" >
             <div class="container">
                 <div class="row ">
                     <div class="col-md-11 offset-xl-1 offset-lg-1 offset-md-1">
                         <div class="hero-caption">
-                            <span>Create Account</span>
-                            <h2>Create Account</h2>
+                            <span>Profile</span>
+                            <h2>Your Account</h2>
                         </div>
                     </div>
                 </div>
@@ -22,24 +22,24 @@
     
                 <div class="row">
                     <div class="col-8">
-                        <h2 class="contact-title text-center">CREATE ACCOUNT</h2>
+                        <h2 class="contact-title text-center">UPDATE PROFILE</h2>
                     </div>
                     <div class="col-lg-8 text-center">
-                        <form class="form-contact contact_form" action="/register" method="POST">
+                        <form class="form-contact contact_form" action="/profile/<%- customer._id %>?_method=PUT" method="POST">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name">
+                                        <input class="form-control valid" name="name" id="name" type="text" value="<%- customer.name %>">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email">
+                                        <input class="form-control valid" name="email" id="email" type="email" value="<%- customer.email %>">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <input class="form-control" name="contact" id="contact" type="tel" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Contact'" placeholder="Enter Contact">
+                                        <input class="form-control" name="contact" id="contact" type="tel" value="<%- customer.contact %>">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -54,8 +54,7 @@
                                 </div>
                             </div>
                             <div class="form-group mt-3">
-                                <button type="submit" class="button button-contactForm boxed-btn">Create Account</button>
-                                <p>Already have an account? </p><a href="/login">Login Here</a> </p>
+                                <button type="submit" class="button button-contactForm boxed-btn">Update Account</button>
                             </div>
                         </form>
                     </div>
@@ -64,7 +63,7 @@
                             <span class="contact-info__icon"><i class="ti-home"></i></span>
                             <div class="media-body">
                                 <h3>Hotel 5 | 10</h3>
-                                <p>Create an account and have access to rooms, reserve rooms, as well as cancel rooms that you have reserved</p>
+                                <p>Please update your profile if a mistake was made on your information</p>
                             </div>
                         </div>
                     </div>
